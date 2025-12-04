@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integra.Domain.Common;
 
-namespace src.BuldingBlocks.Domain;
+namespace Integra.Domain;
 
 public abstract class BaseEntity<TId>
 {
