@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Integra.Domain.Common;
 using Integra.Domain.Enums;
+using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedCustomField
+public class UnifiedCustomField : ValueObject
 {
     public string Name;
     public CustomFieldType Type;
@@ -16,6 +18,8 @@ public class UnifiedCustomField
 
     private UnifiedCustomField(string name, CustomFieldType type, object? value = null)
     {
+        if(name is null)
+            throw new DomainException(nameof(name), "Custom field name cannot be null");
         Name = name;
         Type = type;
         Value = value;
@@ -27,4 +31,15 @@ public class UnifiedCustomField
     // add single or multiple mappings
     public void AddExternalMapping(ExternalFieldMapping mapping) => _externalMappings.Add(mapping);
     public void AddExternalMappings(IEnumerable<ExternalFieldMapping> mappings) => _externalMappings.AddRange(mappings);
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Name;
+        yield return Type;
+        yield return Value ?? string.Empty;
+        foreach (var mapping in _externalMappings)
+        {
+            yield return mapping;
+        }
+    }
 }
