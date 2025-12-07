@@ -41,6 +41,19 @@ public sealed class SyncRule : AggregateRoot<Guid>
         bool isEnabled,
         DateTime? lastRunOn) : base()
     {
+        if (tenantId == Guid.Empty)
+            throw new DomainException("TenantId cannot be empty.", nameof(tenantId));
+        if (sourceIntegrationId == Guid.Empty)
+            throw new DomainException("SourceIntegrationId cannot be empty.", nameof(sourceIntegrationId));
+        if (targetIntegrationId == Guid.Empty)
+            throw new DomainException("TargetIntegrationId cannot be empty.", nameof(targetIntegrationId));
+        if (string.IsNullOrWhiteSpace(scope))
+            throw new DomainException("Scope cannot be null or empty.", nameof(scope));
+        if (string.IsNullOrWhiteSpace(mappingJson))
+            throw new DomainException("MappingJson cannot be null or empty.", nameof(mappingJson));
+        if (frequency <= TimeSpan.Zero)
+            throw new DomainException("Frequency must be greater than zero.", nameof(frequency));
+
         Id = Guid.NewGuid();
         TenantId = tenantId;
         SourceIntegrationId = sourceIntegrationId;
@@ -64,21 +77,7 @@ public sealed class SyncRule : AggregateRoot<Guid>
         string mappingJson,
         TimeSpan frequency,
         bool isEnabled,
-        DateTime? lastRunOn)
-    {
-        if (tenantId == Guid.Empty)
-            throw new DomainException("TenantId cannot be empty.", nameof(tenantId));
-        if (sourceIntegrationId == Guid.Empty)
-            throw new DomainException("SourceIntegrationId cannot be empty.", nameof(sourceIntegrationId));
-        if (targetIntegrationId == Guid.Empty)
-            throw new DomainException("TargetIntegrationId cannot be empty.", nameof(targetIntegrationId));
-        if (string.IsNullOrWhiteSpace(scope))
-            throw new DomainException("Scope cannot be null or empty.", nameof(scope));
-        if (string.IsNullOrWhiteSpace(mappingJson))
-            throw new DomainException("MappingJson cannot be null or empty.", nameof(mappingJson));
-        if (frequency <= TimeSpan.Zero)
-            throw new DomainException("Frequency must be greater than zero.", nameof(frequency));
-        return new SyncRule(
+        DateTime? lastRunOn) => new SyncRule(
             tenantId,
             sourceIntegrationId,
             targetIntegrationId,
@@ -88,5 +87,4 @@ public sealed class SyncRule : AggregateRoot<Guid>
             frequency,
             isEnabled,
             lastRunOn);
-    }
 }

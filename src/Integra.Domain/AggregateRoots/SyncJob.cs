@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Integra.Domain.Common;
 using Integra.Domain.Enums;
 using Integra.Domain.Events;
+using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.AggregateRoots;
 
@@ -38,6 +39,11 @@ public sealed class SyncJob : AggregateRoot<Guid>
         DateTime? completedOn,
         DateTime? lastUpdatedOn) : base()
     {
+        if(syncRuleId == Guid.Empty)
+            throw new DomainException("SyncRuleId cannot be empty", nameof(syncRuleId));
+        if(tenantId == Guid.Empty)
+            throw new DomainException("TenantId cannot be empty", nameof(tenantId));
+
         Id = Guid.NewGuid();
         SyncRuleId = syncRuleId;
         TenantId = tenantId;
@@ -61,14 +67,7 @@ public sealed class SyncJob : AggregateRoot<Guid>
         string? errorMessage,
         DateTime startedOn,
         DateTime? completedOn,
-        DateTime? lastUpdatedOn)
-    {
-        if(syncRuleId == Guid.Empty)
-            throw new ArgumentException("SyncRuleId cannot be empty", nameof(syncRuleId));
-        if(tenantId == Guid.Empty)
-            throw new ArgumentException("TenantId cannot be empty", nameof(tenantId));
-
-        return new SyncJob(
+        DateTime? lastUpdatedOn) => new SyncJob(
             syncRuleId,
             tenantId,
             jobType,
@@ -78,5 +77,4 @@ public sealed class SyncJob : AggregateRoot<Guid>
             startedOn,
             completedOn,
             lastUpdatedOn);
-    }
 }

@@ -38,6 +38,15 @@ public sealed class Integration : AggregateRoot<Guid>
         string configurationJson,
         int rateLimitPerMinute) : base()
     {
+        if (tenantId == Guid.Empty)
+            throw new DomainException("TenantId cannot be empty.", nameof(tenantId));
+        if (string.IsNullOrWhiteSpace(systemUrl))
+            throw new DomainException("SystemUrl cannot be null or empty.", nameof(systemUrl));
+        if (string.IsNullOrWhiteSpace(apiKeyHash))
+            throw new DomainException("ApiKeyHash cannot be null or empty.", nameof(apiKeyHash));
+        if (rateLimitPerMinute <= 0)
+            throw new DomainException("RateLimitPerMinute must be greater than zero.", nameof(rateLimitPerMinute));
+
         Id = Guid.NewGuid();
         TenantId = tenantId;
         IntegrationType = integrationType;
@@ -58,18 +67,7 @@ public sealed class Integration : AggregateRoot<Guid>
         string apiKeyHash,
         DateTime connectedOn,
         string configurationJson,
-        int rateLimitPerMinute)
-    {
-        if (tenantId == Guid.Empty)
-            throw new DomainException("TenantId cannot be empty.", nameof(tenantId));
-        if (string.IsNullOrWhiteSpace(systemUrl))
-            throw new DomainException("SystemUrl cannot be null or empty.", nameof(systemUrl));
-        if (string.IsNullOrWhiteSpace(apiKeyHash))
-            throw new DomainException("ApiKeyHash cannot be null or empty.", nameof(apiKeyHash));
-        if (rateLimitPerMinute <= 0)
-            throw new DomainException("RateLimitPerMinute must be greater than zero.", nameof(rateLimitPerMinute));
-
-        return new Integration(
+        int rateLimitPerMinute) => new Integration(
             tenantId,
             integrationType,
             systemUrl,
@@ -77,5 +75,4 @@ public sealed class Integration : AggregateRoot<Guid>
             connectedOn,
             configurationJson,
             rateLimitPerMinute);
-    }
 }
