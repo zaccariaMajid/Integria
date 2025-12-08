@@ -6,4 +6,4 @@ using Integra.Domain.Common;
 
 namespace Integra.Domain.Events;
 
-public record UnifiedTaskCreated(Guid id, Guid projectId, Guid ownerId, string title) : DomainEvent;
+public record UnifiedTaskCreated(Guid id, Guid projectId, string ownerName, string title) : DomainEvent;

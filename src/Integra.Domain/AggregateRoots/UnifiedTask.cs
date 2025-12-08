@@ -26,8 +26,8 @@ public class UnifiedTask : AggregateRoot<Guid>
     public UnifiedTaskStatus Status { get; private set; }
     public UnifiedTaskPriority Priority { get; private set; }
 
-    public UnifiedUser AssignedUser { get; private set; }
-    public UnifiedUser ReporterUser { get; private set; }
+    public UnifiedUser AssignedUser { get; private set; } = null!;
+    public UnifiedUser ReporterUser { get; private set; } = null!;
 
     // DATES
     public DateTime TaskCreationDate { get; private set; }
@@ -111,7 +111,7 @@ public class UnifiedTask : AggregateRoot<Guid>
         StartDate = startDate;
         CompletionDate = completionDate;
 
-        AddDomainEvent(new UnifiedTaskCreated(Id, projectId, assignedUser.Id, title));
+        AddDomainEvent(new UnifiedTaskCreated(Id, projectId, assignedUser.DisplayName, title));
     }
 
     public static UnifiedTask Create(
