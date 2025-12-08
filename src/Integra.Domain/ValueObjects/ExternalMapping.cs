@@ -6,9 +6,9 @@ using Integra.Domain.Common;
 using Integra.Domain.Events;
 using Integra.Domain.Exceptions;
 
-namespace Integra.Domain.AggregateRoots;
+namespace Integra.Domain.ValueObjects;
 
-public class ExternalMapping : AggregateRoot<Guid>
+public class ExternalMapping : ValueObject
 {
     public Guid IntegrationId { get; private set; }
     public string ExternalId { get; private set; } = null!;
@@ -25,17 +25,24 @@ public class ExternalMapping : AggregateRoot<Guid>
             throw new DomainException(nameof(integrationId), "Integration ID cannot be empty GUID");
         if(externalId is null)
             throw new DomainException(nameof(externalId), "External ID cannot be null");
-        Id = Guid.NewGuid();
+
         IntegrationId = integrationId;
         ExternalId = externalId;
         ExternalKey = externalKey;
         Url = url;
         LastSyncedAt = lastSyncedAt ?? DateTime.UtcNow;
         RevisionHash = revisionHash;
-
-        AddDomainEvent(new ExternalMappingCreated(Id));
     }
 
     public static ExternalMapping Create(Guid integrationId, string externalId, string? externalKey = null, string? url = null, DateTime? lastSyncedAt = null, string? revisionHash = null)
         => new ExternalMapping(integrationId, externalId, externalKey, url, lastSyncedAt, revisionHash);
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return IntegrationId;
+        yield return ExternalId;
+        yield return ExternalKey ?? string.Empty;
+        yield return Url ?? string.Empty;
+        yield return RevisionHash ?? string.Empty;
+    }
 }
