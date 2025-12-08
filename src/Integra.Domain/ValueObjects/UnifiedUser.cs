@@ -14,7 +14,8 @@ public class UnifiedUser : ValueObject
     public string? Email { get; private set; }
     public string? AvatarUrl { get; private set; }
     public List<ExternalMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalMapping> ExternalMappings => _externalMappings.AsReadOnly();
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings 
+        => _externalMappings.AsReadOnly();
 
     private UnifiedUser() { }
     private UnifiedUser(string displayName, string? email, string? avatarUrl, List<ExternalMapping> externalMappings)
@@ -27,7 +28,8 @@ public class UnifiedUser : ValueObject
         _externalMappings = externalMappings;
     }
 
-    public static UnifiedUser Create(string displayName, string? email, string? avatarUrl, List<ExternalMapping> externalMappings) => new UnifiedUser(displayName, email, avatarUrl, externalMappings);
+    public static UnifiedUser Create(string displayName, string? email, string? avatarUrl, List<ExternalMapping> externalMappings) 
+        => new UnifiedUser(displayName, email, avatarUrl, externalMappings);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

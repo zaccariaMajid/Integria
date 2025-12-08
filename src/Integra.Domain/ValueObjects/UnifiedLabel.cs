@@ -24,7 +24,8 @@ public class UnifiedLabel : ValueObject
         Color = color;
     }
 
-    public static UnifiedLabel Create(string name, string color) => new UnifiedLabel(name, color);
+    public static UnifiedLabel Create(string name, string color) 
+        => new UnifiedLabel(name, color);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

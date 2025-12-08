@@ -17,7 +17,8 @@ public class UnifiedAttachment : ValueObject
     public int SizeInBytes { get; private set; }
     public string ContentType { get; private set; } = null!;
     private List<ExternalMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalMapping> ExternalMappings => _externalMappings.AsReadOnly();
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings 
+        => _externalMappings.AsReadOnly();
 
     private UnifiedAttachment() { }
 

@@ -15,7 +15,8 @@ public class UnifiedSubtask : ValueObject
     public UnifiedTaskStatus Status { get; private set; }
 
     private List<ExternalMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalMapping> ExternalMappings => _externalMappings;
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings 
+        => _externalMappings.AsReadOnly();
 
     private UnifiedSubtask() { }
 
@@ -31,8 +32,10 @@ public class UnifiedSubtask : ValueObject
         => new UnifiedSubtask(title, status);
 
     // add single or multiple mappings
-    public void AddExternalMapping(ExternalMapping mapping) => _externalMappings.Add(mapping);
-    public void AddExternalMappings(IEnumerable<ExternalMapping> mappings) => _externalMappings.AddRange(mappings);
+    public void AddExternalMapping(ExternalMapping mapping) 
+        => _externalMappings.Add(mapping);
+    public void AddExternalMappings(IEnumerable<ExternalMapping> mappings) 
+        => _externalMappings.AddRange(mappings);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

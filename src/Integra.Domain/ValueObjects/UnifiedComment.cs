@@ -16,7 +16,8 @@ public class UnifiedComment : ValueObject
     public DateTime? UpdatedAt { get; private set; }
 
     private List<ExternalMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalMapping> ExternalMappings => _externalMappings.AsReadOnly();
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings    
+        => _externalMappings.AsReadOnly();
 
     private UnifiedComment() { }
 
@@ -36,8 +37,10 @@ public class UnifiedComment : ValueObject
     public static UnifiedComment Create(UnifiedUser author, string body, DateTime createdAt, DateTime? updatedAt = null)
         => new UnifiedComment(author, body, createdAt, updatedAt);
 
-    public void AddExternalMapping(ExternalMapping mapping) => _externalMappings.Add(mapping);
-    public void AddExternalMappings(IEnumerable<ExternalMapping> mappings) => _externalMappings.AddRange(mappings);
+    public void AddExternalMapping(ExternalMapping mapping) 
+        => _externalMappings.Add(mapping);
+    public void AddExternalMappings(IEnumerable<ExternalMapping> mappings) 
+        => _externalMappings.AddRange(mappings);
     
     protected override IEnumerable<object> GetEqualityComponents()
     {

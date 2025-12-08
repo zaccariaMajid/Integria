@@ -14,7 +14,8 @@ public class UnifiedCustomField : ValueObject
     public CustomFieldType Type;
     public object? Value;
     private List<ExternalFieldMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalFieldMapping> ExternalMappings => _externalMappings;
+    public IReadOnlyCollection<ExternalFieldMapping> ExternalMappings 
+        => _externalMappings.AsReadOnly();
 
     private UnifiedCustomField(string name, CustomFieldType type, object? value = null)
     {
@@ -29,8 +30,10 @@ public class UnifiedCustomField : ValueObject
         => new UnifiedCustomField(name, type, value);
 
     // add single or multiple mappings
-    public void AddExternalMapping(ExternalFieldMapping mapping) => _externalMappings.Add(mapping);
-    public void AddExternalMappings(IEnumerable<ExternalFieldMapping> mappings) => _externalMappings.AddRange(mappings);
+    public void AddExternalMapping(ExternalFieldMapping mapping) 
+        => _externalMappings.Add(mapping);
+    public void AddExternalMappings(IEnumerable<ExternalFieldMapping> mappings) 
+        => _externalMappings.AddRange(mappings);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
