@@ -14,13 +14,13 @@ public class UnifiedUser : ValueObject
     public string? Email { get; private set; }
     public string? AvatarUrl { get; private set; }
     public List<ExternalMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalMapping> ExternalMappings 
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings
         => _externalMappings.AsReadOnly();
 
     private UnifiedUser() { }
     private UnifiedUser(string displayName, string? email, string? avatarUrl, List<ExternalMapping> externalMappings)
     {
-        if(string.IsNullOrWhiteSpace(displayName))
+        if (string.IsNullOrWhiteSpace(displayName))
             throw new DomainException("Display name cannot be null or empty.", nameof(displayName));
         DisplayName = displayName;
         Email = email;
@@ -28,7 +28,7 @@ public class UnifiedUser : ValueObject
         _externalMappings = externalMappings;
     }
 
-    public static UnifiedUser Create(string displayName, string? email, string? avatarUrl, List<ExternalMapping> externalMappings) 
+    public static UnifiedUser Create(string displayName, string? email, string? avatarUrl, List<ExternalMapping> externalMappings)
         => new UnifiedUser(displayName, email, avatarUrl, externalMappings);
 
     protected override IEnumerable<object> GetEqualityComponents()
@@ -36,7 +36,7 @@ public class UnifiedUser : ValueObject
         yield return DisplayName;
         yield return Email ?? string.Empty;
         yield return AvatarUrl ?? string.Empty;
-        foreach(var mapping in _externalMappings)
+        foreach (var mapping in _externalMappings)
         {
             yield return mapping;
         }

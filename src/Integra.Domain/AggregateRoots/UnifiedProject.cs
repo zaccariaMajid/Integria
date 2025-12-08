@@ -34,15 +34,15 @@ public class UnifiedProject : AggregateRoot<Guid>
 
     private UnifiedProject(Guid tenantId, string name, string description, Guid ownerId, UnifiedVisibilityType visibility)
     {
-        if(tenantId == Guid.Empty)
+        if (tenantId == Guid.Empty)
             throw new DomainException("Tenant ID cannot be empty GUID", nameof(tenantId));
-        if(name is null)
+        if (name is null)
             throw new DomainException(nameof(name), "Project name cannot be null");
-        if(description is null)
+        if (description is null)
             throw new DomainException(nameof(description), "Project description cannot be null");
-        if(ownerId == Guid.Empty)
+        if (ownerId == Guid.Empty)
             throw new DomainException("Owner ID cannot be empty GUID", nameof(ownerId));
-        
+
         TenantId = tenantId;
         Name = name;
         Description = description;
@@ -52,12 +52,12 @@ public class UnifiedProject : AggregateRoot<Guid>
         AddDomainEvent(new UnifiedProjectCreated(this.Id, this.TenantId));
     }
 
-    public static UnifiedProject Create(Guid tenantId, string name, string description,  Guid ownerId, UnifiedVisibilityType visibility)
+    public static UnifiedProject Create(Guid tenantId, string name, string description, Guid ownerId, UnifiedVisibilityType visibility)
         => new UnifiedProject(tenantId, name, description, ownerId, visibility);
 
     public void AddLabel(UnifiedLabel label)
     {
-        if(label is null)
+        if (label is null)
             throw new DomainException(nameof(label), "Label cannot be null");
         _labels.Add(label);
         Touch();
@@ -66,7 +66,7 @@ public class UnifiedProject : AggregateRoot<Guid>
 
     public void AddCustomField(UnifiedCustomField customField)
     {
-        if(customField is null)
+        if (customField is null)
             throw new DomainException(nameof(customField), "Custom field cannot be null");
         _customFields.Add(customField);
         Touch();

@@ -16,15 +16,15 @@ public class UnifiedLabel : ValueObject
 
     private UnifiedLabel(string name, string color)
     {
-        if(name is null)
-            throw new DomainException("Label name cannot be null",nameof(name));
-        if(color is null)
-            throw new DomainException("Label color cannot be null",nameof(color));
+        if (name is null)
+            throw new DomainException("Label name cannot be null", nameof(name));
+        if (color is null)
+            throw new DomainException("Label color cannot be null", nameof(color));
         Name = name;
         Color = color;
     }
 
-    public static UnifiedLabel Create(string name, string color) 
+    public static UnifiedLabel Create(string name, string color)
         => new UnifiedLabel(name, color);
 
     protected override IEnumerable<object> GetEqualityComponents()

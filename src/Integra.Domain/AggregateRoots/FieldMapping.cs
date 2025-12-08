@@ -22,9 +22,9 @@ public sealed class FieldMapping : AggregateRoot<Guid>
 
     private FieldMapping(string fieldName, string unifiedValue, IEnumerable<ExternalValueMapping> externalMappings)
     {
-        if(string.IsNullOrWhiteSpace(fieldName))
+        if (string.IsNullOrWhiteSpace(fieldName))
             throw new DomainException("Field name cannot be null or empty.", nameof(fieldName));
-        if(string.IsNullOrWhiteSpace(unifiedValue))
+        if (string.IsNullOrWhiteSpace(unifiedValue))
             throw new DomainException("Unified value cannot be null or empty.", nameof(unifiedValue));
         FieldName = fieldName;
         UnifiedValue = unifiedValue;
@@ -32,6 +32,6 @@ public sealed class FieldMapping : AggregateRoot<Guid>
     }
 
     public static FieldMapping Create(string fieldName, string unifiedValue, IEnumerable<ExternalValueMapping> externalMappings)
-        =>new FieldMapping(fieldName, unifiedValue, externalMappings);
+        => new FieldMapping(fieldName, unifiedValue, externalMappings);
 
 }

@@ -14,9 +14,9 @@ public sealed class ExternalValueMapping : ValueObject
 
     private ExternalValueMapping(Guid integrationId, string externalValue)
     {
-        if(integrationId == Guid.Empty)
+        if (integrationId == Guid.Empty)
             throw new DomainException("Integration ID cannot be empty.", nameof(integrationId));
-        if(string.IsNullOrWhiteSpace(externalValue))
+        if (string.IsNullOrWhiteSpace(externalValue))
             throw new DomainException("External value cannot be null or empty.", nameof(externalValue));
         IntegrationId = integrationId;
         ExternalValue = externalValue;

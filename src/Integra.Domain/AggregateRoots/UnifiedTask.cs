@@ -75,25 +75,25 @@ public class UnifiedTask : AggregateRoot<Guid>
         DateTime? startDate,
         DateTime? completionDate)
     {
-        if(tenantId == Guid.Empty)
+        if (tenantId == Guid.Empty)
             throw new ArgumentException("Tenant ID cannot be empty GUID", nameof(tenantId));
-        if(projectId == Guid.Empty)
+        if (projectId == Guid.Empty)
             throw new ArgumentException("Project ID cannot be empty GUID", nameof(projectId));
-        if(title is null)
+        if (title is null)
             throw new ArgumentException("Title cannot be null", nameof(title));
-        if(description is null)
+        if (description is null)
             throw new ArgumentException("Description cannot be null", nameof(description));
-        if(assignedUser is null)
+        if (assignedUser is null)
             throw new ArgumentException("Assigned user cannot be null", nameof(assignedUser));
-        if(reporterUser is null)
+        if (reporterUser is null)
             throw new ArgumentException("Reporter user cannot be null", nameof(reporterUser));
-        if(taskCreationDate == default)
+        if (taskCreationDate == default)
             throw new ArgumentException("Task creation date cannot be default", nameof(taskCreationDate));
-        if(taskCreationDate > DateTime.UtcNow)
+        if (taskCreationDate > DateTime.UtcNow)
             throw new ArgumentException("Task creation date cannot be in the future", nameof(taskCreationDate));
-        if(taskUpdateDate == default)
+        if (taskUpdateDate == default)
             throw new ArgumentException("Task update date cannot be default", nameof(taskUpdateDate));
-        if(taskUpdateDate < taskCreationDate)
+        if (taskUpdateDate < taskCreationDate)
             throw new ArgumentException("Task update date cannot be before creation date", nameof(taskUpdateDate));
 
         Id = Guid.NewGuid();

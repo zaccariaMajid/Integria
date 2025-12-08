@@ -15,14 +15,14 @@ public class UnifiedSubtask : ValueObject
     public UnifiedTaskStatus Status { get; private set; }
 
     private List<ExternalMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalMapping> ExternalMappings 
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings
         => _externalMappings.AsReadOnly();
 
     private UnifiedSubtask() { }
 
     private UnifiedSubtask(string title, UnifiedTaskStatus status)
     {
-        if(title is null)
+        if (title is null)
             throw new DomainException(nameof(title), "Subtask title cannot be null");
         Title = title;
         Status = status;
@@ -32,9 +32,9 @@ public class UnifiedSubtask : ValueObject
         => new UnifiedSubtask(title, status);
 
     // add single or multiple mappings
-    public void AddExternalMapping(ExternalMapping mapping) 
+    public void AddExternalMapping(ExternalMapping mapping)
         => _externalMappings.Add(mapping);
-    public void AddExternalMappings(IEnumerable<ExternalMapping> mappings) 
+    public void AddExternalMappings(IEnumerable<ExternalMapping> mappings)
         => _externalMappings.AddRange(mappings);
 
     protected override IEnumerable<object> GetEqualityComponents()

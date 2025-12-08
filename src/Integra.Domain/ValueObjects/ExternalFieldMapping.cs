@@ -17,9 +17,9 @@ public sealed class ExternalFieldMapping : ValueObject
     private ExternalFieldMapping() { }
     private ExternalFieldMapping(Guid integrationId, string externalName, string? externalType = null, object? additionalInfo = null)
     {
-        if(externalName is null)
+        if (externalName is null)
             throw new DomainException(nameof(externalName), "External name cannot be null");
-        if(integrationId == Guid.Empty)
+        if (integrationId == Guid.Empty)
             throw new DomainException(nameof(integrationId), "Integration ID cannot be empty GUID");
 
         IntegrationId = integrationId;

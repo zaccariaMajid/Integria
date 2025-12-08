@@ -21,9 +21,9 @@ public class ExternalMapping : ValueObject
 
     private ExternalMapping(Guid integrationId, string externalId, string? externalKey = null, string? url = null, DateTime? lastSyncedAt = null, string? revisionHash = null)
     {
-        if(integrationId == Guid.Empty)
+        if (integrationId == Guid.Empty)
             throw new DomainException(nameof(integrationId), "Integration ID cannot be empty GUID");
-        if(externalId is null)
+        if (externalId is null)
             throw new DomainException(nameof(externalId), "External ID cannot be null");
 
         IntegrationId = integrationId;

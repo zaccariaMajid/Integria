@@ -16,9 +16,9 @@ public class ExternalUserMapping : ValueObject
 
     public ExternalUserMapping(Guid integrationId, string externalUserId, string externalUserName)
     {
-        if(string.IsNullOrWhiteSpace(externalUserId))
+        if (string.IsNullOrWhiteSpace(externalUserId))
             throw new ArgumentException("External user ID cannot be null or empty.", nameof(externalUserId));
-        if(string.IsNullOrWhiteSpace(externalUserName))
+        if (string.IsNullOrWhiteSpace(externalUserName))
             throw new ArgumentException("External user name cannot be null or empty.", nameof(externalUserName));
         IntegrationId = integrationId;
         ExternalUserId = externalUserId;

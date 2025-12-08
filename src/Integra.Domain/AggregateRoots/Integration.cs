@@ -27,7 +27,7 @@ public sealed class Integration : AggregateRoot<Guid>
     public string ConfigurationJson { get; private set; } = null!;
     public int RateLimitPerMinute { get; private set; }
 
-    private Integration() : base(){}
+    private Integration() : base() { }
 
     private Integration(
         Guid tenantId,

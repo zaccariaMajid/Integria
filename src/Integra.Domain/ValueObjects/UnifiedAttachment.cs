@@ -17,18 +17,18 @@ public class UnifiedAttachment : ValueObject
     public int SizeInBytes { get; private set; }
     public string ContentType { get; private set; } = null!;
     private List<ExternalMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalMapping> ExternalMappings 
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings
         => _externalMappings.AsReadOnly();
 
     private UnifiedAttachment() { }
 
     private UnifiedAttachment(string fileName, string url, DateTime updatedAt, UnifiedUser updatedBy, int sizeInBytes, string contentType)
     {
-        if(string.IsNullOrWhiteSpace(fileName))
+        if (string.IsNullOrWhiteSpace(fileName))
             throw new DomainException("FileName cannot be null or empty.", nameof(fileName));
-        if(string.IsNullOrWhiteSpace(url))
+        if (string.IsNullOrWhiteSpace(url))
             throw new DomainException("Url cannot be null or empty.", nameof(url));
-            
+
         FileName = fileName;
         Url = url;
         UpdatedAt = updatedAt;

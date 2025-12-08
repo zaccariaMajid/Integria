@@ -14,12 +14,12 @@ public class UnifiedCustomField : ValueObject
     public CustomFieldType Type;
     public object? Value;
     private List<ExternalFieldMapping> _externalMappings = new();
-    public IReadOnlyCollection<ExternalFieldMapping> ExternalMappings 
+    public IReadOnlyCollection<ExternalFieldMapping> ExternalMappings
         => _externalMappings.AsReadOnly();
 
     private UnifiedCustomField(string name, CustomFieldType type, object? value = null)
     {
-        if(name is null)
+        if (name is null)
             throw new DomainException(nameof(name), "Custom field name cannot be null");
         Name = name;
         Type = type;
@@ -30,9 +30,9 @@ public class UnifiedCustomField : ValueObject
         => new UnifiedCustomField(name, type, value);
 
     // add single or multiple mappings
-    public void AddExternalMapping(ExternalFieldMapping mapping) 
+    public void AddExternalMapping(ExternalFieldMapping mapping)
         => _externalMappings.Add(mapping);
-    public void AddExternalMappings(IEnumerable<ExternalFieldMapping> mappings) 
+    public void AddExternalMappings(IEnumerable<ExternalFieldMapping> mappings)
         => _externalMappings.AddRange(mappings);
 
     protected override IEnumerable<object> GetEqualityComponents()

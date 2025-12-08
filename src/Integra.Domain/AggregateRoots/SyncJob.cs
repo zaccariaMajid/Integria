@@ -39,9 +39,9 @@ public sealed class SyncJob : AggregateRoot<Guid>
         DateTime? completedOn,
         DateTime? lastUpdatedOn) : base()
     {
-        if(syncRuleId == Guid.Empty)
+        if (syncRuleId == Guid.Empty)
             throw new DomainException("SyncRuleId cannot be empty", nameof(syncRuleId));
-        if(tenantId == Guid.Empty)
+        if (tenantId == Guid.Empty)
             throw new DomainException("TenantId cannot be empty", nameof(tenantId));
 
         Id = Guid.NewGuid();
