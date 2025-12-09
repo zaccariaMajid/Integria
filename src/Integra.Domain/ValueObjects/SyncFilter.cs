@@ -53,25 +53,26 @@ public sealed class SyncFilter : ValueObject
             onlyFromIntegration);
     }
     public void AddStatus(string status)
-    {
-        _statuses.Add(status);
-    }
+        => _statuses.Add(status);
+    public void AddStatuses(IEnumerable<string> statuses)
+        => _statuses.AddRange(statuses);
+    
     public void AddLabel(string label)
-    {
-        _labels.Add(label);
-    }
+        => _labels.Add(label);
+    public void AddLabels(IEnumerable<string> labels)
+        => _labels.AddRange(labels);
     public void AddPriority(string priority)
-    {
-        _priorities.Add(priority);
-    }
+        => _priorities.Add(priority);
+    public void AddPriorities(IEnumerable<string> priorities)
+        => _priorities.AddRange(priorities);
     public void AddAssignee(Guid assigneeId)
-    {
-        _assignees.Add(assigneeId);
-    }
+        => _assignees.Add(assigneeId);
+    public void AddAssignees(IEnumerable<Guid> assigneeIds)
+        => _assignees.AddRange(assigneeIds);
     public void AddCustomFieldName(string fieldName)
-    {
-        _customFieldNames.Add(fieldName);
-    }
+        => _customFieldNames.Add(fieldName);
+    public void AddCustomFieldNames(IEnumerable<string> fieldNames)
+        => _customFieldNames.AddRange(fieldNames);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
