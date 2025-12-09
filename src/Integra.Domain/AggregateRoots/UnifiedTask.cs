@@ -25,7 +25,7 @@ public class UnifiedTask : AggregateRoot<Guid>
     public string Title { get; private set; } = null!;
     public string Description { get; private set; } = null!;
     public UnifiedTaskStatus Status { get; private set; } = null!;
-    public UnifiedTaskPriority Priority { get; private set; }
+    public UnifiedPriority Priority { get; private set; } = null!;
 
     public UnifiedUser AssignedUser { get; private set; } = null!;
     public UnifiedUser ReporterUser { get; private set; } = null!;
@@ -67,7 +67,7 @@ public class UnifiedTask : AggregateRoot<Guid>
         string title,
         string description,
         UnifiedTaskStatus status,
-        UnifiedTaskPriority priority,
+        UnifiedPriority priority,
         UnifiedUser assignedUser,
         UnifiedUser reporterUser,
         DateTime taskCreationDate,
@@ -121,7 +121,7 @@ public class UnifiedTask : AggregateRoot<Guid>
         string title,
         string description,
         UnifiedTaskStatus status,
-        UnifiedTaskPriority priority,
+        UnifiedPriority priority,
         UnifiedUser assignedUser,
         UnifiedUser reporterUser,
         DateTime taskCreationDate,

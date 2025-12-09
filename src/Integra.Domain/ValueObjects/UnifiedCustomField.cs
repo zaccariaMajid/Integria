@@ -29,7 +29,6 @@ public class UnifiedCustomField : ValueObject
     public static UnifiedCustomField Create(string name, CustomFieldType type, object? value = null)
         => new UnifiedCustomField(name, type, value);
 
-    // add single or multiple mappings
     public void AddExternalMapping(ExternalFieldMapping mapping)
         => _externalMappings.Add(mapping);
     public void AddExternalMappings(IEnumerable<ExternalFieldMapping> mappings)

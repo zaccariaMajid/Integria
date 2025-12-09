@@ -19,10 +19,14 @@ namespace Integra.Domain.AggregateRoots;
 public class UnifiedProject : AggregateRoot<Guid>
 {
     public Guid TenantId { get; private set; }
+
     public string Name { get; private set; } = null!;
     public string Description { get; private set; } = null!;
     public Guid OwnerId { get; private set; }
     public UnifiedVisibilityType Visibility { get; private set; }
+
+    public DateTime ProjectCreatedAt { get; private set; }
+    public DateTime ProjectUpdatedAt { get; private set; }
 
     private readonly List<UnifiedLabel> _labels = new();
     public IReadOnlyCollection<UnifiedLabel> Labels => _labels.AsReadOnly();
@@ -30,18 +34,25 @@ public class UnifiedProject : AggregateRoot<Guid>
     private readonly List<UnifiedCustomField> _customFields = new();
     public IReadOnlyCollection<UnifiedCustomField> CustomFields => _customFields.AsReadOnly();
 
+    private readonly List<ExternalMapping> _externalMappings = new();
+    public IReadOnlyCollection<ExternalMapping> ExternalMappings => _externalMappings.AsReadOnly();
+
+    public ProjectSyncSettings SyncSettings { get; private set; } = null!;
+
     private UnifiedProject() { }
 
-    private UnifiedProject(Guid tenantId, string name, string description, Guid ownerId, UnifiedVisibilityType visibility)
+    private UnifiedProject(Guid tenantId, ProjectSyncSettings projectSyncSettings, string name, string description, Guid ownerId, UnifiedVisibilityType visibility)
     {
         if (tenantId == Guid.Empty)
             throw new DomainException("Tenant ID cannot be empty GUID", nameof(tenantId));
-        if (name is null)
-            throw new DomainException(nameof(name), "Project name cannot be null");
+        if (string.IsNullOrWhiteSpace(name))
+            throw new DomainException(nameof(name), "Project name cannot be empty");
         if (description is null)
             throw new DomainException(nameof(description), "Project description cannot be null");
         if (ownerId == Guid.Empty)
             throw new DomainException("Owner ID cannot be empty GUID", nameof(ownerId));
+        if( projectSyncSettings is null)
+            throw new DomainException(nameof(projectSyncSettings), "Project sync settings cannot be null");
 
         TenantId = tenantId;
         Name = name;
@@ -49,11 +60,15 @@ public class UnifiedProject : AggregateRoot<Guid>
         OwnerId = ownerId;
         Visibility = visibility;
 
-        AddDomainEvent(new UnifiedProjectCreated(this.Id, this.TenantId));
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = CreatedAt;
+;
+
+        AddDomainEvent(new UnifiedProjectCreated(Id, TenantId));
     }
 
-    public static UnifiedProject Create(Guid tenantId, string name, string description, Guid ownerId, UnifiedVisibilityType visibility)
-        => new UnifiedProject(tenantId, name, description, ownerId, visibility);
+    public static UnifiedProject Create(Guid tenantId, ProjectSyncSettings projectSyncSettings, string name, string description, Guid ownerId, UnifiedVisibilityType visibility)
+        => new UnifiedProject(tenantId, projectSyncSettings, name, description, ownerId, visibility);
 
     public void AddLabel(UnifiedLabel label)
     {
@@ -71,5 +86,11 @@ public class UnifiedProject : AggregateRoot<Guid>
         _customFields.Add(customField);
         Touch();
         AddDomainEvent(new UnifiedProjectCustomFieldAdded(Id, customField.Name));
+    }
+
+    public void AddExternalMapping(ExternalMapping mapping)
+    {
+        _externalMappings.Add(mapping);
+        Touch();
     }
 }
