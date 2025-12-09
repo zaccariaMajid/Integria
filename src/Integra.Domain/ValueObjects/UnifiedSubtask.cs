@@ -13,6 +13,9 @@ public class UnifiedSubtask : ValueObject
 {
     public string Title { get; private set; } = null!;
     public UnifiedTaskStatus Status { get; private set; }
+    public UnifiedUser? Assignee { get; private set; } = null!;
+    public DateTime CreatedAt { get; private set; }
+    public DateTime UpdatedAt { get; private set; }
 
     private List<ExternalMapping> _externalMappings = new();
     public IReadOnlyCollection<ExternalMapping> ExternalMappings
@@ -20,16 +23,21 @@ public class UnifiedSubtask : ValueObject
 
     private UnifiedSubtask() { }
 
-    private UnifiedSubtask(string title, UnifiedTaskStatus status)
+    private UnifiedSubtask(string title, UnifiedUser assignee, DateTime createdAt, DateTime updatedAt, UnifiedTaskStatus status)
     {
         if (title is null)
             throw new DomainException(nameof(title), "Subtask title cannot be null");
+        if (updatedAt > createdAt)
+            throw new DomainException(nameof(updatedAt), "Subtask update date cannot be greater than creation date");
         Title = title;
         Status = status;
+        Assignee = assignee;
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
     }
 
-    public static UnifiedSubtask Create(string title, UnifiedTaskStatus status)
-        => new UnifiedSubtask(title, status);
+    public static UnifiedSubtask Create(string title, UnifiedUser assignee, DateTime createdAt, DateTime updatedAt, UnifiedTaskStatus status)
+        => new UnifiedSubtask(title, assignee, createdAt, updatedAt, status);
 
     // add single or multiple mappings
     public void AddExternalMapping(ExternalMapping mapping)
@@ -40,7 +48,9 @@ public class UnifiedSubtask : ValueObject
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Title;
-        yield return Status;
+        yield return Status; ;
+        yield return CreatedAt;
+        yield return UpdatedAt;
         foreach (var mapping in _externalMappings)
         {
             yield return mapping;
