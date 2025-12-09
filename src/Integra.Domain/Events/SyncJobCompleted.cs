@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Integra.Domain.Common;
-using Integra.Domain.Enums;
 
 namespace Integra.Domain.Events;
 
-public record SyncJobCreated(Guid SyncJobId, Guid SyncRuleId, SyncJobType JobType) : DomainEvent;
+public record SyncJobCompleted(Guid JobId) : DomainEvent;

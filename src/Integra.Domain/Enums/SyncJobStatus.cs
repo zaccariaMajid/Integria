@@ -2,8 +2,9 @@ namespace Integra.Domain.Enums;
 
 public enum SyncJobStatus
 {
-    pending = 1,
-    running = 2,
-    failed = 3,
-    success = 4
+    Pending = 1,
+    Running = 2,
+    Failed = 3,
+    Success = 4,
+    Retrying = 5
 }

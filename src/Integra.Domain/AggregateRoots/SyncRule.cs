@@ -7,6 +7,7 @@ using Integra.Domain.Enums;
 using Integra.Domain.Events;
 using Integra.Domain.Exceptions;
 using Integra.Domain.ExtensionMethods;
+using Integra.Domain.ValueObjects;
 
 namespace Integra.Domain.AggregateRoots;
 /// <summary>
@@ -19,72 +20,97 @@ namespace Integra.Domain.AggregateRoots;
 public sealed class SyncRule : AggregateRoot<Guid>
 {
     public Guid TenantId { get; private set; }
+
+    // Provider coinvolti
     public Guid SourceIntegrationId { get; private set; }
     public Guid TargetIntegrationId { get; private set; }
-    public SyncDirection SyncDirection { get; private set; }
-    public string Scope { get; private set; } = null!;
-    public string MappingJson { get; private set; } = null!;
-    public TimeSpan Frequency { get; private set; }
-    public bool IsEnabled { get; private set; }
-    public DateTime? LastRunOn { get; private set; }
 
-    private SyncRule() : base() { }
+    // Direzione della sincronizzazione
+    public SyncDirection Direction { get; private set; }
+
+    // Scope (Tasks, Comments, Labels, ecc.)
+    public SyncScope Scope { get; private set; }
+
+    // Filtri opzionali (labels, statuses, updatedAfter...)
+    public SyncFilter? Filter { get; private set; }
+
+    // Come risolvere conflitti tra versioni
+    public SyncConflictPolicy ConflictPolicy { get; private set; }
+
+    // Quale set di mapping utilizzare
+    public Guid FieldMappingId { get; private set; }
+
+    // Scheduling è gestito da un aggregate SEPARATO → SyncSchedule
+    public Guid? SyncScheduleId { get; private set; }
+
+    public bool IsEnabled { get; private set; }
+
+    private SyncRule() { }
 
     private SyncRule(
         Guid tenantId,
         Guid sourceIntegrationId,
         Guid targetIntegrationId,
-        SyncDirection syncDirection,
-        string scope,
-        string mappingJson,
-        TimeSpan frequency,
-        bool isEnabled,
-        DateTime? lastRunOn) : base()
+        SyncDirection direction,
+        SyncScope scope,
+        SyncFilter? filter,
+        SyncConflictPolicy conflictPolicy,
+        Guid fieldMappingId,
+        Guid? syncScheduleId,
+        bool isEnabled)
     {
         if (tenantId == Guid.Empty)
-            throw new DomainException("TenantId cannot be empty.", nameof(tenantId));
-        if (sourceIntegrationId == Guid.Empty)
-            throw new DomainException("SourceIntegrationId cannot be empty.", nameof(sourceIntegrationId));
-        if (targetIntegrationId == Guid.Empty)
-            throw new DomainException("TargetIntegrationId cannot be empty.", nameof(targetIntegrationId));
-        if (string.IsNullOrWhiteSpace(scope))
-            throw new DomainException("Scope cannot be null or empty.", nameof(scope));
-        if (string.IsNullOrWhiteSpace(mappingJson))
-            throw new DomainException("MappingJson cannot be null or empty.", nameof(mappingJson));
-        if (frequency <= TimeSpan.Zero)
-            throw new DomainException("Frequency must be greater than zero.", nameof(frequency));
+            throw new DomainException("TenantId cannot be empty", nameof(tenantId));
 
-        Id = Guid.NewGuid();
+        if (sourceIntegrationId == Guid.Empty)
+            throw new DomainException("SourceIntegrationId cannot be empty", nameof(sourceIntegrationId));
+
+        if (targetIntegrationId == Guid.Empty)
+            throw new DomainException("TargetIntegrationId cannot be empty", nameof(targetIntegrationId));
+
         TenantId = tenantId;
         SourceIntegrationId = sourceIntegrationId;
         TargetIntegrationId = targetIntegrationId;
-        SyncDirection = syncDirection;
+        Direction = direction;
         Scope = scope;
-        MappingJson = mappingJson;
-        Frequency = frequency;
+        Filter = filter;
+        ConflictPolicy = conflictPolicy;
+        FieldMappingId = fieldMappingId;
+        SyncScheduleId = syncScheduleId;
         IsEnabled = isEnabled;
-        LastRunOn = lastRunOn;
 
-        AddDomainEvent(new SyncRuleCreated(Id, sourceIntegrationId, targetIntegrationId, syncDirection.GetEnumDescription()));
+        AddDomainEvent(new SyncRuleCreated(Id, SourceIntegrationId, TargetIntegrationId, Direction.GetEnumDescription()));
     }
 
-    public SyncRule Create(
+    public static SyncRule Create(
         Guid tenantId,
         Guid sourceIntegrationId,
         Guid targetIntegrationId,
-        SyncDirection syncDirection,
-        string scope,
-        string mappingJson,
-        TimeSpan frequency,
-        bool isEnabled,
-        DateTime? lastRunOn) => new SyncRule(
+        SyncDirection direction,
+        SyncScope scope,
+        SyncFilter? filter,
+        SyncConflictPolicy conflictPolicy,
+        Guid fieldMappingId,
+        Guid? syncScheduleId,
+        bool isEnabled = true)
+    {
+        return new SyncRule(
             tenantId,
             sourceIntegrationId,
             targetIntegrationId,
-            syncDirection,
+            direction,
             scope,
-            mappingJson,
-            frequency,
-            isEnabled,
-            lastRunOn);
+            filter,
+            conflictPolicy,
+            fieldMappingId,
+            syncScheduleId,
+            isEnabled
+        );
+    }
+
+    public void Enable() => IsEnabled = true;
+    public void Disable() => IsEnabled = false;
+
+    public void AssignSchedule(Guid scheduleId)
+        => SyncScheduleId = scheduleId;
 }
