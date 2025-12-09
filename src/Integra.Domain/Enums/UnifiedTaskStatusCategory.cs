@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace Integra.Domain.Enums;
 
-public enum UnifiedTaskStatus
+public enum UnifiedTaskStatusCategory
 {
-    ToDo,
-    InProgress,
-    Blocked,
-    Done,
-    Closed,
-    Reopened
+    NotStarted,
+    Active,
+    Waiting,
+    Completed,
+    Cancelled
 }

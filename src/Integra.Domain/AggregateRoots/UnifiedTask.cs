@@ -24,7 +24,7 @@ public class UnifiedTask : AggregateRoot<Guid>
     // CORE FIELDS
     public string Title { get; private set; } = null!;
     public string Description { get; private set; } = null!;
-    public UnifiedTaskStatus Status { get; private set; }
+    public UnifiedTaskStatus Status { get; private set; } = null!;
     public UnifiedTaskPriority Priority { get; private set; }
 
     public UnifiedUser AssignedUser { get; private set; } = null!;
@@ -167,9 +167,6 @@ public class UnifiedTask : AggregateRoot<Guid>
 
         _customFields.Add(customField);
     }
-
-    // Additional methods to manage comments, attachments, labels, custom fields, relations, and external mappings can be added here
-
     public void AddComment(UnifiedComment comment)
     {
         if (comment is null)
