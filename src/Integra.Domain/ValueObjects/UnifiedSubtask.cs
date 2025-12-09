@@ -12,7 +12,7 @@ namespace Integra.Domain.ValueObjects;
 public class UnifiedSubtask : ValueObject
 {
     public string Title { get; private set; } = null!;
-    public UnifiedTaskStatus Status { get; private set; }
+    public UnifiedTaskStatus Status { get; private set; } = null!;
     public UnifiedUser? Assignee { get; private set; } = null!;
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
