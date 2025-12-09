@@ -16,7 +16,7 @@ namespace Integra.Domain.AggregateRoots;
 /// ensures the consistency of its internal parts (comments, subtasks, etc.)
 /// provides a single point from which to perform conversions and mapping
 /// </summary>
-public class UnifiedTask : AggregateRoot<Guid>
+public sealed class UnifiedTask : AggregateRoot<Guid>
 {
     public Guid TenantId { get; private set; }
     public Guid ProjectId { get; private set; }

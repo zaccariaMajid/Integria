@@ -16,7 +16,7 @@ namespace Integra.Domain.AggregateRoots;
 /// Know which projects are linked to each other in the various tools.
 /// Define the scope of syncs (e.g., “only sync this project”).
 /// </summary>
-public class UnifiedProject : AggregateRoot<Guid>
+public sealed class UnifiedProject : AggregateRoot<Guid>
 {
     public Guid TenantId { get; private set; }
 
@@ -51,7 +51,7 @@ public class UnifiedProject : AggregateRoot<Guid>
             throw new DomainException(nameof(description), "Project description cannot be null");
         if (ownerId == Guid.Empty)
             throw new DomainException("Owner ID cannot be empty GUID", nameof(ownerId));
-        if( projectSyncSettings is null)
+        if (projectSyncSettings is null)
             throw new DomainException(nameof(projectSyncSettings), "Project sync settings cannot be null");
 
         TenantId = tenantId;
@@ -62,7 +62,7 @@ public class UnifiedProject : AggregateRoot<Guid>
 
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = CreatedAt;
-;
+        ;
 
         AddDomainEvent(new UnifiedProjectCreated(Id, TenantId));
     }

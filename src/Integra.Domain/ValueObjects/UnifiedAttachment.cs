@@ -8,7 +8,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedAttachment : ValueObject
+public sealed class UnifiedAttachment : ValueObject
 {
     public string FileName { get; private set; } = null!;
     public string Url { get; private set; } = null!;

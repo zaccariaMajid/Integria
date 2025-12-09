@@ -8,7 +8,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedTaskStatus : ValueObject
+public sealed class UnifiedTaskStatus : ValueObject
 {
     public string Name { get; private set; } = null!;
     public string Color { get; private set; } = null!;

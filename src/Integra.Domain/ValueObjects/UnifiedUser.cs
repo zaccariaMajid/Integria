@@ -8,7 +8,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedUser : ValueObject
+public sealed class UnifiedUser : ValueObject
 {
     public string DisplayName { get; private set; } = null!;
     public string? Email { get; private set; }

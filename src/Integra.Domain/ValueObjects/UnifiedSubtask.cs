@@ -9,7 +9,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedSubtask : ValueObject
+public sealed class UnifiedSubtask : ValueObject
 {
     public string Title { get; private set; } = null!;
     public UnifiedTaskStatus Status { get; private set; } = null!;

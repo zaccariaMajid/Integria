@@ -8,7 +8,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedCustomField : ValueObject
+public sealed class UnifiedCustomField : ValueObject
 {
     public string Name;
     public CustomFieldType Type;

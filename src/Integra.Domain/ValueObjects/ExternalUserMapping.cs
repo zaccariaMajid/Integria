@@ -6,7 +6,7 @@ using Integra.Domain.Common;
 
 namespace Integra.Domain.ValueObjects;
 
-public class ExternalUserMapping : ValueObject
+public sealed class ExternalUserMapping : ValueObject
 {
     public Guid IntegrationId { get; private set; }
     public string ExternalUserId { get; private set; } = null!;

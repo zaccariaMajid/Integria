@@ -8,7 +8,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedComment : ValueObject
+public sealed class UnifiedComment : ValueObject
 {
     public UnifiedUser Author { get; private set; } = null!;
     public string Body { get; private set; } = null!;

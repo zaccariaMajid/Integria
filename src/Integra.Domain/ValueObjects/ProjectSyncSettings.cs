@@ -7,7 +7,7 @@ using Integra.Domain.Common;
 
 namespace Integra.Domain.ValueObjects;
 
-public class ProjectSyncSettings : ValueObject
+public sealed class ProjectSyncSettings : ValueObject
 {
     private List<Guid> _includedIntegrationIds = new();
     public IReadOnlyCollection<Guid> IncludedIntegrationIds => _includedIntegrationIds;

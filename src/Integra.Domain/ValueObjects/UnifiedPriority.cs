@@ -7,7 +7,7 @@ using Integra.Domain.Enums;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedPriority : ValueObject
+public sealed class UnifiedPriority : ValueObject
 {
     public string Name { get; private set; } = null!;
     public int Level { get; private set; }
@@ -25,14 +25,14 @@ public class UnifiedPriority : ValueObject
 
     public static UnifiedPriority Create(string name, int level, UnifiedPriorityCategory category, string colorHex)
         => new UnifiedPriority(name, level, category, colorHex);
-    
+
     public void AddExternalMapping(ExternalPriorityMapping mapping)
     {
-        if(mapping == null)
+        if (mapping == null)
             throw new ArgumentNullException(nameof(mapping));
         _externalMappings.Add(mapping);
     }
-    
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Name;

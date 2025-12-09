@@ -8,7 +8,7 @@ using Integra.Domain.ValueObjects;
 
 namespace Integra.Domain.AggregateRoots;
 
-public class FieldMapping : AggregateRoot<Guid>
+public sealed class FieldMapping : AggregateRoot<Guid>
 {
     public Guid TenantId { get; private set; }
 

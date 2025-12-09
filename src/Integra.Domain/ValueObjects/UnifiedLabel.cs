@@ -7,7 +7,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedLabel : ValueObject
+public sealed class UnifiedLabel : ValueObject
 {
     public string Name { get; private set; } = null!;
     public string Color { get; private set; } = null!;

@@ -8,7 +8,7 @@ using Integra.Domain.Exceptions;
 
 namespace Integra.Domain.ValueObjects;
 
-public class UnifiedRelation : ValueObject
+public sealed class UnifiedRelation : ValueObject
 {
     public Guid TargetTaskId { get; private set; }
     public UnifiedRelationType RelationType { get; private set; }
@@ -17,7 +17,7 @@ public class UnifiedRelation : ValueObject
 
     private UnifiedRelation(Guid targetTaskId, UnifiedRelationType relationType, List<ExternalMapping>? externalMappings = null)
     {
-        if(targetTaskId == Guid.Empty)
+        if (targetTaskId == Guid.Empty)
             throw new DomainException("TargetTaskId cannot be empty.", nameof(targetTaskId));
 
         TargetTaskId = targetTaskId;
@@ -27,7 +27,7 @@ public class UnifiedRelation : ValueObject
     }
 
     public static UnifiedRelation Create(Guid targetTaskId, UnifiedRelationType relationType, List<ExternalMapping>? externalMappings = null)
-        => new UnifiedRelation(targetTaskId,  relationType, externalMappings);
+        => new UnifiedRelation(targetTaskId, relationType, externalMappings);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
