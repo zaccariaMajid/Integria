@@ -56,7 +56,7 @@ public sealed class SyncFilter : ValueObject
         => _statuses.Add(status);
     public void AddStatuses(IEnumerable<string> statuses)
         => _statuses.AddRange(statuses);
-    
+
     public void AddLabel(string label)
         => _labels.Add(label);
     public void AddLabels(IEnumerable<string> labels)

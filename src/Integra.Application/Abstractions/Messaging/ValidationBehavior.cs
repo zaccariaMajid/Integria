@@ -13,7 +13,7 @@ namespace Integra.Application.Abstractions.Messaging;
 /// </summary>
 /// <typeparam name="TRequest">The type of the request being validated.</typeparam>
 /// <typeparam name="TResponse">The type of the response returned by the handler.</typeparam>
-public sealed class ValidationBehavior<TRequest, TResponse> 
+public sealed class ValidationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
     where TResponse : notnull
@@ -26,8 +26,8 @@ public sealed class ValidationBehavior<TRequest, TResponse>
     }
 
     public async Task<TResponse> Handle(
-        TRequest request, 
-        RequestHandlerDelegate<TResponse> next, 
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
         if (_validators.Any())

@@ -8,7 +8,7 @@ using Integra.Domain.AggregateRoots;
 
 namespace Integra.Application.SyncRules.CreateSyncRule;
 
-public sealed class CreateSyncRuleHandler 
+public sealed class CreateSyncRuleHandler
     : ICommandHandler<CreateSyncRuleCommand, SyncRuleDto>
 {
     private readonly ISyncRuleRepository _repository;

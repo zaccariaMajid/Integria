@@ -113,7 +113,7 @@ public sealed class SyncRule : AggregateRoot<Guid>
 
     public void AssignSchedule(Guid scheduleId)
         => SyncScheduleId = scheduleId;
-        public void RemoveSchedule() => SyncScheduleId = null;
+    public void RemoveSchedule() => SyncScheduleId = null;
     public void UpdateConfiguration(
         SyncScope scope,
         SyncFilter? filter,

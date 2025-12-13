@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Integra.Application.Abstractions.Messaging;
 
-public class LoggingBehavior<TRequest, TResponse> 
+public class LoggingBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {

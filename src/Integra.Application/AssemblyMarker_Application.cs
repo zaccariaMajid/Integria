@@ -4,4 +4,4 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Integra.Application;
-public class AssemblyMarker_Application {}
+public class AssemblyMarker_Application { }

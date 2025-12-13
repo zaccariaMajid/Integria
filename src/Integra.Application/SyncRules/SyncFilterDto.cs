@@ -22,7 +22,7 @@ public sealed record SyncFilterDto(
             updatedAfter: UpdatedAfter,
             onlyFromIntegration: OnlyFromIntegration
         );
-        
+
         filter.AddStatuses(Statuses?.ToList() ?? new List<string>());
         filter.AddLabels(Labels?.ToList() ?? new List<string>());
         filter.AddPriorities(Priorities?.ToList() ?? new List<string>());
