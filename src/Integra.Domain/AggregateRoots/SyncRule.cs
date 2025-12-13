@@ -113,4 +113,19 @@ public sealed class SyncRule : AggregateRoot<Guid>
 
     public void AssignSchedule(Guid scheduleId)
         => SyncScheduleId = scheduleId;
+
+    public void UpdateConfiguration(
+        SyncScope scope,
+        SyncFilter? filter,
+        SyncConflictPolicy conflictPolicy,
+        Guid fieldMappingId)
+    {
+        if (fieldMappingId == Guid.Empty)
+            throw new DomainException("FieldMappingId cannot be empty", nameof(fieldMappingId));
+
+        Scope = scope;
+        Filter = filter;
+        ConflictPolicy = conflictPolicy;
+        FieldMappingId = fieldMappingId;
+    }
 }

@@ -9,5 +9,5 @@ namespace Integra.Application.Interfaces.Repositories;
 public interface ISyncRuleRepository
 {
     Task AddAsync(SyncRule rule);
-    Task<SyncRule?> GetByIdAsync(Guid id);
+    Task<SyncRule?> GetByIdAsync(Guid id, CancellationToken ct);
 }

@@ -12,15 +12,12 @@ public sealed class CreateSyncRuleHandler
     : ICommandHandler<CreateSyncRuleCommand, SyncRuleDto>
 {
     private readonly ISyncRuleRepository _repository;
-    // private readonly IUnitOfWork _unitOfWork;
 
     public CreateSyncRuleHandler(
         ISyncRuleRepository repository
-        // IUnitOfWork unitOfWork
         )
     {
         _repository = repository;
-        // _unitOfWork = unitOfWork;
     }
 
     public async Task<SyncRuleDto> HandleAsync(CreateSyncRuleCommand command, CancellationToken ct)
@@ -42,7 +39,6 @@ public sealed class CreateSyncRuleHandler
         );
 
         await _repository.AddAsync(rule);
-        // await _unitOfWork.SaveChangesAsync(ct);
 
         return SyncRuleDto.FromDomain(rule);
     }
