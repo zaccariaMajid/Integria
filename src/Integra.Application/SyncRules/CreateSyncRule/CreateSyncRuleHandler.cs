@@ -20,7 +20,7 @@ public sealed class CreateSyncRuleHandler
         _repository = repository;
     }
 
-    public async Task<SyncRuleDto> HandleAsync(CreateSyncRuleCommand command, CancellationToken ct)
+    public async Task<SyncRuleDto> Handle(CreateSyncRuleCommand command, CancellationToken ct)
     {
         // DTO → ValueObject
         var filter = command.Filter?.ToValueObject();

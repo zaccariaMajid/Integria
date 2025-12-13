@@ -6,9 +6,6 @@ using System.Windows.Input;
 using Integra.Application.Interfaces;
 using MediatR;
 
-namespace Integra.Application;
+namespace Integra.Application.SyncRules.RemoveScheduleFromSyncRule;
 
-public interface ICommandHandler<TCommand, TResult> : IRequestHandler<TCommand, TResult>
-    where TCommand : ICommand<TResult>
-{
-}
+public sealed record RemoveScheduleFromSyncRuleCommand(Guid SyncRuleId) : ICommand<Unit>;
