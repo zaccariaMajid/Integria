@@ -5,6 +5,6 @@ using System.Threading.Tasks;
 using Integra.Application.Interfaces;
 using MediatR;
 
-namespace Integra.Application.SyncRules.EnableSyncRule;
+namespace Integra.Application.SyncRules.Commands.EnableSyncRule;
 
 public sealed record EnableSyncRuleCommand(Guid SyncRuleId) : ICommand<Unit>;

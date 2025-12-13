@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Integra.Application.Interfaces;
 using MediatR;
 
-namespace Integra.Application.SyncRules.AssignScheduleToSyncRule;
+namespace Integra.Application.SyncRules.Commands.AssignScheduleToSyncRule;
 
 public sealed record AssignScheduleToSyncRuleCommand(
     Guid SyncRuleId,

@@ -6,26 +6,26 @@ using Integra.Application.Exceptions;
 using Integra.Application.Interfaces.Repositories;
 using MediatR;
 
-namespace Integra.Application.SyncRules.EnableSyncRule;
+namespace Integra.Application.SyncRules.Commands.RemoveScheduleFromSyncRule;
 
-public sealed class EnableSyncRuleHandler
-    : ICommandHandler<EnableSyncRuleCommand, Unit>
+public sealed class RemoveScheduleFromSyncRuleHandler
+    : ICommandHandler<RemoveScheduleFromSyncRuleCommand, Unit>
 {
     private readonly ISyncRuleRepository _repository;
 
-    public EnableSyncRuleHandler(ISyncRuleRepository repository)
+    public RemoveScheduleFromSyncRuleHandler(ISyncRuleRepository repository)
     {
         _repository = repository;
     }
 
     public async Task<Unit> Handle(
-        EnableSyncRuleCommand cmd,
+        RemoveScheduleFromSyncRuleCommand cmd,
         CancellationToken ct)
     {
         var rule = await _repository.GetByIdAsync(cmd.SyncRuleId, ct)
             ?? throw new ApplicationNotFoundException("SyncRule not found");
 
-        rule.Enable();
+        rule.RemoveSchedule();
 
         return Unit.Value;
     }

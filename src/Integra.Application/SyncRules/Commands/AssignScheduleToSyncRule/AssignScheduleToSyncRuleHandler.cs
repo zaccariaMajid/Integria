@@ -6,7 +6,7 @@ using Integra.Application.Exceptions;
 using Integra.Application.Interfaces.Repositories;
 using MediatR;
 
-namespace Integra.Application.SyncRules.AssignScheduleToSyncRule;
+namespace Integra.Application.SyncRules.Commands.AssignScheduleToSyncRule;
 
 public sealed class AssignScheduleToSyncRuleHandler
     : ICommandHandler<AssignScheduleToSyncRuleCommand, Unit>

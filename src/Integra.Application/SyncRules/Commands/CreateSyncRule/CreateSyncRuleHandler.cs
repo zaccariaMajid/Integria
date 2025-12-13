@@ -6,7 +6,7 @@ using Integra.Application.Abstractions;
 using Integra.Application.Interfaces.Repositories;
 using Integra.Domain.AggregateRoots;
 
-namespace Integra.Application.SyncRules.CreateSyncRule;
+namespace Integra.Application.SyncRules.Commands.CreateSyncRule;
 
 public sealed class CreateSyncRuleHandler
     : ICommandHandler<CreateSyncRuleCommand, SyncRuleDto>

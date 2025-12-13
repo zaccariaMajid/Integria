@@ -3,7 +3,7 @@ using Integra.Application.SyncRules;
 using Integra.Domain.Enums;
 using MediatR;
 
-namespace Integra.Application.SyncRules.UpdateSyncRule;
+namespace Integra.Application.SyncRules.Commands.UpdateSyncRule;
 
 public sealed record UpdateSyncRuleCommand(
     Guid SyncRuleId,

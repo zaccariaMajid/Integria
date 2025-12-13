@@ -2,7 +2,7 @@ using Integra.Application.Exceptions;
 using Integra.Application.Interfaces.Repositories;
 using MediatR;
 
-namespace Integra.Application.SyncRules.UpdateSyncRule;
+namespace Integra.Application.SyncRules.Commands.UpdateSyncRule;
 
 public sealed class UpdateSyncRuleHandler
     : IRequestHandler<UpdateSyncRuleCommand, Unit>

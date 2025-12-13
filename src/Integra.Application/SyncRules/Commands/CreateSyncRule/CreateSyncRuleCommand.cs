@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Integra.Application.Interfaces;
 using Integra.Domain.Enums;
 
-namespace Integra.Application.SyncRules.CreateSyncRule;
+namespace Integra.Application.SyncRules.Commands.CreateSyncRule;
 
 public sealed record CreateSyncRuleCommand(
     Guid TenantId,
