@@ -5,4 +5,4 @@ using System.Threading.Tasks;
 
 namespace Integra.Application.Abstractions;
 
-public interface IQuery<TResult> { }
+public interface IQuerys<TResult> { }
