@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Integra.Application.Abstractions;
 using Integra.Application.Interfaces.Repositories;
+using Integra.Application.Interfaces.Repositories.SyncRules;
 using Integra.Domain.AggregateRoots;
 
 namespace Integra.Application.SyncRules.Commands.CreateSyncRule;

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
-using Integra.Application.SyncRules.CreateSyncRule;
-using Integra.Application.SyncRules.UpdateSyncRule;
+using Integra.Application.SyncRules.Commands.UpdateSyncRule;
 
 namespace Integra.Application.Validators;
 
