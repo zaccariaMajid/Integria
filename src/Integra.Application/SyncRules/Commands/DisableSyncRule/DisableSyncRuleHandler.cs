@@ -1,12 +1,12 @@
+using Integra.Application;
 using Integra.Application.Exceptions;
-using Integra.Application.Interfaces.Repositories;
 using Integra.Application.Interfaces.Repositories.SyncRules;
 using MediatR;
 
 namespace Integra.Application.SyncRules.Commands.DisableSyncRule;
 
 public sealed class DisableSyncRuleHandler
-    : IRequestHandler<DisableSyncRuleCommand, Unit>
+    : ICommandHandler<DisableSyncRuleCommand, Unit>
 {
     private readonly ISyncRuleRepository _repository;
 

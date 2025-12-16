@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Integra.Application.Abstractions;
+using Integra.Application.Interfaces;
 using MediatR;
 
 namespace Integra.Application.Abstractions.Messaging;
@@ -24,9 +25,12 @@ public class UnitOfWorkBehavior<TRequest, TResponse>
         RequestHandlerDelegate<TResponse> next,
         CancellationToken ct)
     {
-        // after the request has been handled, save changes in the unit of work
+        // Commands are handled by TransactionBehavior; queries are read-only.
+        if (request is ICommand<TResponse> || request is IQuery<TResponse>)
+            return await next();
+
         var response = await next();
-        // commit transaction
+
         await _uow.SaveChangesAsync(ct);
         return response;
     }

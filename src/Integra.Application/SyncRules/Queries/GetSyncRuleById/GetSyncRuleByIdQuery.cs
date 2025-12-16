@@ -1,4 +1,4 @@
-using Integra.Application.Abstractions;
+using Integra.Application.Interfaces;
 
 namespace Integra.Application.SyncRules.Queries.GetSyncRuleById;
 

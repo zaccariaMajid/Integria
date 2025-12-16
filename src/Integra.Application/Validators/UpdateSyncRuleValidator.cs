@@ -18,5 +18,7 @@ public class UpdateSyncRuleValidator
             .IsInEnum().WithMessage("Scope must be a valid enum value.");
         RuleFor(x => x.ConflictPolicy)
             .IsInEnum().WithMessage("ConflictPolicy must be a valid enum value.");
+        RuleFor(x => x.FieldMappingId)
+            .NotEmpty().WithMessage("FieldMappingId is required.");
     }
 }
