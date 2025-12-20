@@ -1,6 +1,6 @@
 using Integra.Domain.Enums;
 
-namespace Integra.Application.SyncRules.Queries.GetSyncRuleById;
+namespace Integra.Application.SyncRules.Queries.GetById;
 
 public sealed record SyncRuleDetailsDto
 (

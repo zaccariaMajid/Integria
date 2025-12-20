@@ -2,7 +2,7 @@ using Integra.Application.Exceptions;
 using Integra.Application.Interfaces;
 using Integra.Application.Interfaces.Repositories.SyncRules;
 
-namespace Integra.Application.SyncRules.Queries.GetSyncRuleById;
+namespace Integra.Application.SyncRules.Queries.GetById;
 
 public sealed class GetSyncRuleByIdHandler
     : IQueryHandler<GetSyncRuleByIdQuery, SyncRuleDetailsDto>
