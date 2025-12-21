@@ -43,7 +43,7 @@ public sealed class SyncJob : AggregateRoot<Guid>
 
         Id = Guid.NewGuid();
         SyncRuleId = syncRuleId;
-        TenantId = tenantId;
+        TenantId = tenantId;    
         JobType = jobType;
 
         JobStatus = SyncJobStatus.Pending;
@@ -96,6 +96,17 @@ public sealed class SyncJob : AggregateRoot<Guid>
         LastUpdatedOn = CompletedOn.Value;
 
         AddDomainEvent(new SyncJobFailed(Id, message));
+    }
+
+    public void Cancel()
+    {
+        if (JobStatus != SyncJobStatus.Running && JobStatus != SyncJobStatus.Pending)
+            throw new DomainException("Only running or pending jobs can be cancelled");
+
+        JobStatus = SyncJobStatus.Cancelled;
+        LastUpdatedOn = DateTime.UtcNow;
+
+        AddDomainEvent(new SyncJobCancelled(Id));
     }
 
     public void Retry()

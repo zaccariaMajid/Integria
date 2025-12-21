@@ -9,5 +9,7 @@ public enum SyncJobType
     [Description("Incremental Sync")]
     IncrementalSync = 2,
     [Description("Conflict Resolution")]
-    ConflictResolution = 3
+    ConflictResolution = 3,
+    [Description("Retry")]
+    Retry = 4
 }

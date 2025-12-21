@@ -9,8 +9,8 @@ public interface ISyncRuleReadRepository
     Task<SyncRuleDetailsDto?> GetByIdAsync(Guid id, CancellationToken ct);
     Task<IReadOnlyList<SyncRuleListItemDto>> ListByTenantAsync(
         Guid tenantId,
-        CancellationToken ct);
+        CancellationToken ct = default);
     Task<IReadOnlyList<SyncRuleListItemDto>> ListByIntegrationAsync(
         Guid integrationId,
-        CancellationToken ct);
+        CancellationToken ct = default);
 }

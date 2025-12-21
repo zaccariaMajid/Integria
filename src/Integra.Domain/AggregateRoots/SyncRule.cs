@@ -67,7 +67,8 @@ public sealed class SyncRule : AggregateRoot<Guid>
 
         if (targetIntegrationId == Guid.Empty)
             throw new DomainException("TargetIntegrationId cannot be empty", nameof(targetIntegrationId));
-
+            
+        Id = Guid.NewGuid();
         TenantId = tenantId;
         SourceIntegrationId = sourceIntegrationId;
         TargetIntegrationId = targetIntegrationId;

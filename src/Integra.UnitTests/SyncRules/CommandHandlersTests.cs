@@ -43,7 +43,7 @@ public class CommandHandlersTests
             rule.ConflictPolicy == command.ConflictPolicy &&
             rule.FieldMappingId == command.FieldMappingId &&
             rule.SyncScheduleId == command.SyncScheduleId &&
-            rule.IsEnabled)), Times.Once);
+            rule.IsEnabled), CancellationToken.None), Times.Once);
 
         dto.TenantId.Should().Be(command.TenantId);
         dto.SourceIntegrationId.Should().Be(command.SourceIntegrationId);
