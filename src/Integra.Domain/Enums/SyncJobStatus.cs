@@ -14,6 +14,6 @@ public enum SyncJobStatus
     Success = 4,
     [Description("Retrying")]
     Retrying = 5,
-    [Description("Cancelled")]
-    Cancelled = 6
+    [Description("Canceled")]
+    Canceled = 6
 }

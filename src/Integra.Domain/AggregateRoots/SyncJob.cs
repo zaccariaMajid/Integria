@@ -103,7 +103,7 @@ public sealed class SyncJob : AggregateRoot<Guid>
         if (JobStatus != SyncJobStatus.Running && JobStatus != SyncJobStatus.Pending)
             throw new DomainException("Only running or pending jobs can be cancelled");
 
-        JobStatus = SyncJobStatus.Cancelled;
+        JobStatus = SyncJobStatus.Canceled;
         LastUpdatedOn = DateTime.UtcNow;
 
         AddDomainEvent(new SyncJobCancelled(Id));
